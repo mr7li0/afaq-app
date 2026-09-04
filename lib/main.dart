@@ -15,18 +15,19 @@ import 'features/main_navigation/presentation/views/main_navigation_view.dart';
 
 late LocalizationProvider gL10n;
 
-void main() {
-  runZonedGuarded(() async {
-    await AppInitialization.initialize();
-    gL10n = LocalizationProvider()..init();
-    runApp(const AfaqApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppInitialization.initialize();
+  gL10n = LocalizationProvider();
+  await gL10n.init();
+  runApp(const AfaqApp());
+
+  // Schedule alarms after app is running (non-blocking)
+  unawaited(Future.delayed(const Duration(seconds: 3), () {
     try {
-      await AppInitialization.scheduleAlarms();
+      AppInitialization.scheduleAlarms();
     } catch (_) {}
-  }, (error, stack) {
-    debugPrint('=== UNHANDLED ERROR ===');
-    debugPrint('$error');
-  });
+  }));
 }
 
 class AfaqApp extends StatefulWidget {

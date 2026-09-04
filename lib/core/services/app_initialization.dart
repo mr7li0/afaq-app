@@ -8,13 +8,47 @@ import '../services/location_service.dart';
 class AppInitialization {
   static Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Hive.initFlutter();
-    await Hive.openBox(AppConstants.boxSettings);
-    await Hive.openBox(AppConstants.boxAlarms);
-    await LocalStorageService().init();
-    await NotificationService().init();
-    await NotificationService().requestNotificationPermission();
-    await _syncLocation();
+
+    // Hive
+    try {
+      await Hive.initFlutter();
+      if (!Hive.isBoxOpen(AppConstants.boxSettings)) {
+        await Hive.openBox(AppConstants.boxSettings);
+      }
+      if (!Hive.isBoxOpen(AppConstants.boxAlarms)) {
+        await Hive.openBox(AppConstants.boxAlarms);
+      }
+    } catch (e) {
+      debugPrint('Hive init error: $e');
+    }
+
+    // LocalStorageService
+    try {
+      await LocalStorageService().init();
+    } catch (e) {
+      debugPrint('LocalStorageService init error: $e');
+    }
+
+    // NotificationService
+    try {
+      await NotificationService().init();
+    } catch (e) {
+      debugPrint('NotificationService init error: $e');
+    }
+
+    // Request notification permission (non-blocking)
+    try {
+      await NotificationService().requestNotificationPermission();
+    } catch (e) {
+      debugPrint('Notification permission error: $e');
+    }
+
+    // Sync location (non-blocking)
+    try {
+      await _syncLocation();
+    } catch (e) {
+      debugPrint('Location sync error: $e');
+    }
   }
 
   static Future<void> _syncLocation() async {

@@ -94,17 +94,15 @@ flutter:
       fonts:
         - asset: assets/fonts/system-fonts/Milan Display Black Swashes.otf
 
+    # ── Surah Name Font (Ejazah) ─────────────────────
+    - family: SurahName
+      fonts:
+        - asset: assets/fonts/quran-fonts/Surah Name Ejazah @Am9li9.ttf
+
     # ── Quran Script Font (Uthmani) ───────────────────
     - family: Uthmani
       fonts:
         - asset: assets/fonts/quran-fonts/KFGQPC-HAFS Uthmanic-V22.ttf
-
-    # ── English UI Font (system fallback via Flutter) ──
-    # Inter / SF Pro are system fonts — no asset needed.
-    # Declared here for reference:
-    # - family: Inter
-    #   fonts:
-    #     - asset: assets/fonts/system-fonts/Inter.ttf
 
 
 

@@ -11,6 +11,7 @@ class AppConstants {
   static const String fontArabic = 'Milan';
   static const String fontEnglish = '.SF Pro Text';
   static const String fontQuran = 'Uthmani';
+  static const String fontSurahName = 'SurahName';
 
   // ── Hive Box Names ─────────────────────────────────
   static const String boxSettings = 'settings';
