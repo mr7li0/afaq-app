@@ -52,8 +52,6 @@ class PrayerTimeUtils {
     final params = method.getParameters();
     params.madhab = madhab;
 
-    final targetDate = date ?? DateTime.now();
-
     return PrayerTimes.today(coords, params);
   }
 

@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_icons.dart';
 import '../../../../core/constants/color_constants.dart';
@@ -273,7 +272,7 @@ class _AthkarReaderViewState extends State<AthkarReaderView>
     );
 
     return AnimatedBuilder(
-      animation: Listenable.merge([bounceAnim!, glowAnim!, counterScaleAnim!]),
+      animation: Listenable.merge([bounceAnim!, glowAnim!, counterScaleAnim!]), // ignore: unnecessary_non_null_assertion
       builder: (context, child) {
         final glowValue = glowAnim!.value;
         final bounceScale = 1.0 + (0.1 * (1.0 - bounceAnim!.value));

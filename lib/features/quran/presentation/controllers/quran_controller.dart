@@ -1,15 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/color_constants.dart';
-import '../../../../core/services/audio_service.dart';
 import '../../../../shared/models/quran_verse.dart';
-import '../../../../shared/models/bookmark.dart';
 import '../../../../shared/models/wird_progress.dart';
 import '../search/quran_search_engine.dart';
 

@@ -28,7 +28,7 @@ class MirroredIcon extends StatelessWidget {
 
     return Transform(
       alignment: Alignment.center,
-      transform: Matrix4.identity()..scale(shouldMirror ? -1.0 : 1.0, 1.0),
+      transform: Matrix4.identity()..setEntry(0, 0, shouldMirror ? -1.0 : 1.0),
       child: SvgPicture.asset(
         assetPath,
         width: size,

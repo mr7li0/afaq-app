@@ -86,7 +86,7 @@ class GlassmorphicBottomNavBar extends StatelessWidget {
           children: [
             Transform(
               alignment: Alignment.center,
-              transform: Matrix4.identity()..scale(isRtl ? -1.0 : 1.0, 1.0),
+              transform: Matrix4.identity()..setEntry(0, 0, isRtl ? -1.0 : 1.0),
               child: SvgPicture.asset(
                 item.svgPath,
                 width: 22,
