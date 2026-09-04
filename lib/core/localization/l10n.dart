@@ -23,6 +23,11 @@ class LocalizationProvider extends ChangeNotifier {
   Map<String, String> get strings => _strings;
   bool get isReady => _isReady;
 
+  void forceReady() {
+    _isReady = true;
+    notifyListeners();
+  }
+
   // ── Initialization ─────────────────────────────────
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();

@@ -18,15 +18,16 @@ late LocalizationProvider gL10n;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  gL10n = LocalizationProvider();
+
   try {
     await AppInitialization.initialize();
   } catch (_) {}
 
   try {
-    gL10n = LocalizationProvider();
     await gL10n.init();
   } catch (_) {
-    gL10n = LocalizationProvider();
+    gL10n.forceReady();
   }
 
   runApp(const AfaqApp());
@@ -139,11 +140,6 @@ class _AppRootState extends State<AppRoot> {
     if (_showSplash) return const _SplashScreen();
     final l10n = context.watch<LocalizationProvider>();
     if (!l10n.isReady) return const _SplashScreen();
-    if (_showPermissionScreen) {
-      return _PermissionScreen(onComplete: () {
-        setState(() => _showPermissionScreen = false);
-      });
-    }
     if (!_isLanguageSet) {
       return LanguageSelectionView(onComplete: () {
         setState(() => _showPermissionScreen = true);
