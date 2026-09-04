@@ -2,11 +2,9 @@ import 'package:adhan/adhan.dart';
 import 'package:intl/intl.dart';
 
 /// Prayer time calculation utilities using the adhan library.
-/// Supports all major calculation methods used in Arab countries.
 class PrayerTimeUtils {
   PrayerTimeUtils._();
 
-  // ── Calculation Methods ────────────────────────────
   static const Map<String, CalculationMethod> calculationMethods = {
     'Umm Al-Qura': CalculationMethod.umm_al_qura,
     'Egyptian Authority': CalculationMethod.egyptian,
@@ -19,7 +17,6 @@ class PrayerTimeUtils {
     'Karachi': CalculationMethod.karachi,
   };
 
-  // ── Method Display Names (Arabic) ──────────────────
   static const Map<String, String> methodNamesAr = {
     'Umm Al-Qura': 'أم القرى',
     'Egyptian Authority': 'الهيئة المصرية العامة للمساحة',
@@ -32,7 +29,6 @@ class PrayerTimeUtils {
     'Karachi': 'كراتشي',
   };
 
-  // ── Madhab Options ─────────────────────────────────
   static const Map<String, Madhab> madhabOptions = {
     'Shafi\'i': Madhab.shafi,
     'Hanafi': Madhab.hanafi,
@@ -43,8 +39,6 @@ class PrayerTimeUtils {
     'Hanafi': 'الحنفي',
   };
 
-  // ── Calculate Prayer Times ─────────────────────────
-  /// Calculate prayer times for a given location and date.
   static PrayerTimes calculate({
     required double latitude,
     required double longitude,
@@ -58,14 +52,11 @@ class PrayerTimeUtils {
     final params = method.getParameters();
     params.madhab = madhab;
 
-    final dateComponents = DateComponents.from(
-      date ?? DateTime.now(),
-    );
+    final targetDate = date ?? DateTime.now();
 
     return PrayerTimes.today(coords, params);
   }
 
-  // ── Get Next Prayer ────────────────────────────────
   static Prayer getNextPrayer({
     required double latitude,
     required double longitude,
@@ -81,7 +72,6 @@ class PrayerTimeUtils {
     return times.nextPrayer();
   }
 
-  // ── Get Time Until Next Prayer ─────────────────────
   static Duration? getTimeUntilNext({
     required double latitude,
     required double longitude,
@@ -97,91 +87,40 @@ class PrayerTimeUtils {
     return times.timeForPrayer(times.nextPrayer())?.difference(DateTime.now());
   }
 
-  // ── Get Prayer Name for Time Period ────────────────
-  static String getPrayerPeriodName({
-    required DateTime prayerTime,
-    required DateTime nextPrayerTime,
-    required bool isArabic,
-  }) {
-    final now = DateTime.now();
-    if (now.isBefore(prayerTime)) {
-      return isArabic ? 'قبل الصلاة' : 'Before Prayer';
-    }
-    return isArabic ? 'بعد الصلاة' : 'After Prayer';
-  }
-
-  // ── Format Duration ────────────────────────────────
   static String formatDuration(Duration duration, {required bool isArabic}) {
     final hours = duration.inHours;
     final minutes = duration.inMinutes.remainder(60);
     final seconds = duration.inSeconds.remainder(60);
 
     if (isArabic) {
-      if (hours > 0) {
-        return '$hours ساعة و $minutes دقيقة';
-      }
+      if (hours > 0) return '$hours ساعة و $minutes دقيقة';
       return '$minutes دقيقة و $seconds ثانية';
     }
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    }
+    if (hours > 0) return '${hours}h ${minutes}m';
     return '${minutes}m ${seconds}s';
   }
 
-  // ── Format Prayer Time ─────────────────────────────
-  static String formatPrayerTime(
-    DateTime time, {
-    required bool isArabic,
-    bool use24Hour = false,
-  }) {
-    if (use24Hour) {
-      return DateFormat('HH:mm').format(time);
-    }
-    if (isArabic) {
-      return DateFormat('hh:mm a', 'ar').format(time);
-    }
+  static String formatPrayerTime(DateTime time, {required bool isArabic, bool use24Hour = false}) {
+    if (use24Hour) return DateFormat('HH:mm').format(time);
+    if (isArabic) return DateFormat('hh:mm a', 'ar').format(time);
     return DateFormat('hh:mm a', 'en').format(time);
   }
 
-  // ── Get Athan Asset Path ───────────────────────────
   static String getAthanAssetPath(String prayerName) {
     switch (prayerName.toLowerCase()) {
-      case 'fajr':
-        return 'assets/audio/notifications/athan-fajr.mp3';
-      case 'dhuhr':
-        return 'assets/audio/notifications/athan-dhuhr.mp3';
-      case 'asr':
-        return 'assets/audio/notifications/athan-asr.mp3';
-      case 'maghrib':
-        return 'assets/audio/notifications/athan-maghrib.mp3';
-      case 'isha':
-        return 'assets/audio/notifications/athan-isha.mp3';
-      default:
-        return 'assets/audio/notifications/athan-fajr.mp3';
+      case 'fajr': return 'assets/audio/notifications/athan-fajr.mp3';
+      case 'dhuhr': return 'assets/audio/notifications/athan-dhuhr.mp3';
+      case 'asr': return 'assets/audio/notifications/athan-asr.mp3';
+      case 'maghrib': return 'assets/audio/notifications/athan-maghrib.mp3';
+      case 'isha': return 'assets/audio/notifications/athan-isha.mp3';
+      default: return 'assets/audio/notifications/athan-fajr.mp3';
     }
   }
 
-  // ── Prayer Name Display ────────────────────────────
   static String displayName(String prayerName, {required bool isArabic}) {
-    const ar = {
-      'fajr': 'الفجر',
-      'sunrise': 'الشروق',
-      'dhuhr': 'الظهر',
-      'asr': 'العصر',
-      'maghrib': 'المغرب',
-      'isha': 'العشاء',
-    };
-    const en = {
-      'fajr': 'Fajr',
-      'sunrise': 'Sunrise',
-      'dhuhr': 'Dhuhr',
-      'asr': 'Asr',
-      'maghrib': 'Maghrib',
-      'isha': 'Isha',
-    };
-    if (isArabic) {
-      return ar[prayerName.toLowerCase()] ?? prayerName;
-    }
+    const ar = {'fajr': 'الفجر', 'sunrise': 'الشروق', 'dhuhr': 'الظهر', 'asr': 'العصر', 'maghrib': 'المغرب', 'isha': 'العشاء'};
+    const en = {'fajr': 'Fajr', 'sunrise': 'Sunrise', 'dhuhr': 'Dhuhr', 'asr': 'Asr', 'maghrib': 'Maghrib', 'isha': 'Isha'};
+    if (isArabic) return ar[prayerName.toLowerCase()] ?? prayerName;
     return en[prayerName.toLowerCase()] ?? prayerName;
   }
 }

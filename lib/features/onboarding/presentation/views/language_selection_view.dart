@@ -12,22 +12,23 @@ class LanguageSelectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: Center(
+      body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
+              const Spacer(flex: 2),
               const Text(
                 'آفاق',
                 style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: AppColors.ivory),
               ),
               const SizedBox(height: 16),
-              Text('اختر لغتك', style: TextStyle(fontSize: 18, color: AppColors.textHint)),
-              const SizedBox(height: 40),
+              const Text('اختر لغتك', style: TextStyle(fontSize: 18, color: AppColors.textHint)),
+              const Spacer(flex: 2),
               _buildLanguageButton(context, label: 'العربية', code: 'ar'),
               const SizedBox(height: 16),
               _buildLanguageButton(context, label: 'کوردی', code: 'ckb'),
+              const Spacer(flex: 2),
             ],
           ),
         ),
