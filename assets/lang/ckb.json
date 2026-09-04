@@ -1,0 +1,168 @@
+{
+  "app_name": "ئافەق",
+  "app_tagline": "هاوبەندی روحی ڕۆژانە",
+
+  "nav": {
+    "home": "سەرەتا",
+    "quran": "قورئان",
+    "athkar": "ئەذکار",
+    "alarms": "ئاگادارکردنەوە",
+    "qibla": "قیبلە",
+    "widgets": "ویجێت",
+    "profile": "پرۆفایل"
+  },
+
+  "dashboard": {
+    "next_prayer": "نوێژی داهاتوو",
+    "time_remaining": "ماوەی ماڵ",
+    "hijri_date": "بەرووی هێجڕی",
+    "gregorian_date": "بەرووی میلادی",
+    "ayah_of_the_day": "ئایەتی ئەمڕۆ",
+    "tadabbur": "تەدەببەر",
+    "refresh_ayah": "ئایەتی نوێ",
+    "fasting_reminder": "ئاگادارکردنەوە بۆ ڕۆژوو",
+    "white_days": "ڕۆژە سپییەکان",
+    "al_kahf": "سۆرەتی کەهف و نوێژ بۆ پێغەمبەر ﷺ",
+    "witr_qiyam": "ویتر و قیام",
+    "hawqala_toggle": "حوقلە",
+    "salawat_toggle": "نوێژ بۆ پێغەمبەر ﷺ",
+    "morning_uthkar": "ئەذکاری بەیانی",
+    "evening_athkar": "ئەذکاری شێوان"
+  },
+
+  "quran": {
+    "search_hint": "گەڕان لە قورئان...",
+    "no_results": "هیچ ئەنجامێک نییە",
+    "surah": "سۆرەت",
+    "ayah": "ئایەت",
+    "juz": "جۆز",
+    "page": "لاپەرە",
+    "play_recitation": "گوێ بگرە",
+    "copy_text": "کۆپی",
+    "tafsir": "تەفسیر",
+    "bookmark": "زیادکردن بۆ دڵخوازەکان",
+    "remove_bookmark": "سڕینەوە لە دڵخوازەکان",
+    "wird_progress": "پێشکەوتنی خوێندن",
+    "catch_up_mode": "دۆخی گەیشتن",
+    "auto_scroll": "خۆ بەسەرچوون",
+    "ambient_sounds": "دەنگە چەورییەکان",
+    "reciters": "خوێنەرەکان",
+    "story_studio": "ئێستۆدیۆی چیرۆک و باکگراوند",
+    "save_image": "پاشەکەوتکردنی وێنە"
+  },
+
+  "athkar": {
+    "morning": "ئەذکاری بەیانی",
+    "evening": "ئەذکاری شێوان",
+    "sleep": "ئەذکاری نووسین",
+    "wake_up": "ئەذکاری بەهێزبوون",
+    "travel": "ئەذکاری گەشتکردن",
+    "mosque": "ئەذکاری مزگەوت",
+    "prayer": "ئەذکاری نوێژ",
+    "count_remaining": "ماوەی ماڵ",
+    "completed": "تەواوبوو"
+  },
+
+  "alarms": {
+    "athan": "ئاذان",
+    "periodic": "ئاگادارکردنەوەی جیاواز",
+    "quiet_hours": "کاتی ئارامی",
+    "morning_athan": "ئاذانی بەیانی",
+    "duhr_athan": "ئاذانی نوێژی نیوەڕۆ",
+    "asr_athan": "ئاذانی نوێژی ئێوارە",
+    "maghrib_athan": "ئاذانی نوێژی ئێوارە",
+    "isha_athan": "ئاذانی نوێژی شێوان",
+    "five_minutes_before": "پێش ٥ خولەک",
+    "at_time": "لە کاتی ئاذان",
+    "location": "شوێن",
+    "calculation_method": "ڕێگای حیسابکردن",
+    "madhab": "مەذهب"
+  },
+
+  "qibla": {
+    "direction": "ئاراستەی قیبلە",
+    "khushoo_mode": "دۆخی خشوع",
+    "enable_khushoo": "چالاککردنی خشوع",
+    "disable_khushoo": "ناچالاککردنی خشوع"
+  },
+
+  "profile": {
+    "feedback": "ڕأی و پێشنیار",
+    "ecosystem": "پەرەپێدانی ئافەق",
+    "backup": "پشتگیری",
+    "export": "هەناردەکردنی زانیاری",
+    "import": "هێنانی زانیاری",
+    "telegram_channels": "کانالەکانی تێلێگرام",
+    "telegram_bots": "بوتەکانی تێلێگرام",
+    "telegram_groups": "کۆمەڵەکانی تێلێگرام"
+  },
+
+  "settings_screen": {
+    "appearance": "ڕووکاری",
+    "font_size": "قەبارەی فۆنت",
+    "clear_cache": "سڕینەوەی کاش",
+    "about_app": "دەربارە ئەپەکە",
+    "rate_app": "هەڵسەنگاندنی ئەپەکە",
+    "athan_notifications": "ئاگادارکردنەوەی ئاذان",
+    "version": "وەشان",
+    "cache_cleared": "کاش بە سەرکەوتوویی سڕایەوە",
+    "appearance_placeholder": "هەڵبژاردەکانی ڕووکاری لەم نزیکەیەدا دێن",
+    "rate_placeholder": "سوپاس بۆ هەڵسەنگاندنەکەت!",
+    "about_placeholder": "ئافەق - هاوبەندی روحی ڕۆژانە"
+  },
+
+  "widgets_screen": {
+    "next_prayer": "نوێژی داهاتوو",
+    "daily_ayah": "ئایەتی ئەمڕۆ",
+    "athkar_counter": "ژمارەی ئەذکار",
+    "reading_progress": "پێشکەوتنی خوێندن",
+    "add_to_home": "زیادکردن بۆ سەرەتا",
+    "glass_background": "باکگراوندی شیشەیی",
+    "text_size": "قەبارەی دەق",
+    "gold_accent": "ڕەنگی زێڕین",
+    "customize": "ڕێکخستن"
+  },
+
+  "onboarding": {
+    "title": "زمانەت هەلبژێرە",
+    "subtitle": "دەتوانیت لە دوای ئێمە لە ڕێکخستنەکان بگۆڕێت",
+    "default_label": "بنەڕەت",
+    "start": "دەستپێبکە"
+  },
+
+  "khatmah": {
+    "title": "ختمە",
+    "daily_pages": "لاپەرەی ڕۆژانە",
+    "target_days": "ژمارەی ڕۆژە ئامانجەکان",
+    "progress": "پێشکەوتن",
+    "pages_read": "لاپەرە خوێندراو",
+    "pages_remaining": "لاپەرەی ماڵ",
+    "completed": "ختمە تەواوبوو!",
+    "set_goal": "دیاریکردنی ئامانج",
+    "reset": "ڕێکخستنەوە"
+  },
+
+  "alarms_screen": {
+    "athan_toggles": "ئاگادارکردنەوەی ئاذان",
+    "morning_evening_athkar": "ئەذکاری بەیانی و شێوان",
+    "night_prayer": "نوێژی شێوان (قیام)",
+    "friday_kahf": "سۆرەتی کەهف (جمعە)"
+  },
+
+  "common": {
+    "ok": "باشە",
+    "cancel": "هەڵوەشاندنەوە",
+    "save": "پاشەکەوتکردن",
+    "delete": "سڕینەوە",
+    "confirm": "دڵنیا بوون",
+    "loading": "لە بارکردن...",
+    "error": "هەڵەیەک ڕوویدا",
+    "retry": "هەوڵدەرەوە",
+    "no_internet": "هێڵی ئینتەرنێت نییە",
+    "settings": "ڕێکخستنەکان",
+    "language": "زمان",
+    "arabic": "عربی",
+    "english": "ئینگلیزی",
+    "kurdish": "کوردی (سۆرانی)"
+  }
+}

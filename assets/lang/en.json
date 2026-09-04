@@ -1,0 +1,168 @@
+{
+  "app_name": "Afaq",
+  "app_tagline": "Your Daily Spiritual Companion",
+
+  "nav": {
+    "home": "Home",
+    "quran": "Quran",
+    "athkar": "Athkar",
+    "alarms": "Alarms",
+    "qibla": "Qibla",
+    "widgets": "Widgets",
+    "profile": "Profile"
+  },
+
+  "dashboard": {
+    "next_prayer": "Next Prayer",
+    "time_remaining": "Remaining",
+    "hijri_date": "Hijri Date",
+    "gregorian_date": "Gregorian Date",
+    "ayah_of_the_day": "Ayah of the Day",
+    "tadabbur": "Tadabbur",
+    "refresh_ayah": "New Ayah",
+    "fasting_reminder": "Fasting Reminder",
+    "white_days": "White Days",
+    "al_kahf": "Surat Al-Kahf & Salawat",
+    "witr_qiyam": "Witr & Qiyam",
+    "hawqala_toggle": "Hawqala",
+    "salawat_toggle": "Salawat",
+    "morning_uthkar": "Morning Athkar",
+    "evening_athkar": "Evening Athkar"
+  },
+
+  "quran": {
+    "search_hint": "Search the Quran...",
+    "no_results": "No results found",
+    "surah": "Surah",
+    "ayah": "Ayah",
+    "juz": "Juz",
+    "page": "Page",
+    "play_recitation": "Listen",
+    "copy_text": "Copy",
+    "tafsir": "Tafsir",
+    "bookmark": "Bookmark",
+    "remove_bookmark": "Remove Bookmark",
+    "wird_progress": "Reading Progress",
+    "catch_up_mode": "Catch-up Mode",
+    "auto_scroll": "Auto Scroll",
+    "ambient_sounds": "Ambient Sounds",
+    "reciters": "Reciters",
+    "story_studio": "Story & Wallpaper Studio",
+    "save_image": "Save Image"
+  },
+
+  "athkar": {
+    "morning": "Morning Athkar",
+    "evening": "Evening Athkar",
+    "sleep": "Sleep Athkar",
+    "wake_up": "Wake-up Athkar",
+    "travel": "Travel Athkar",
+    "mosque": "Mosque Athkar",
+    "prayer": "Prayer Athkar",
+    "count_remaining": "Remaining",
+    "completed": "Completed"
+  },
+
+  "alarms": {
+    "athan": "Athan",
+    "periodic": "Periodic Notifications",
+    "quiet_hours": "Quiet Hours",
+    "morning_athan": "Fajr Athan",
+    "duhr_athan": "Dhuhr Athan",
+    "asr_athan": "Asr Athan",
+    "maghrib_athan": "Maghrib Athan",
+    "isha_athan": "Isha Athan",
+    "five_minutes_before": "5 minutes before",
+    "at_time": "At Athan time",
+    "location": "Location",
+    "calculation_method": "Calculation Method",
+    "madhab": "Madhab"
+  },
+
+  "qibla": {
+    "direction": "Qibla Direction",
+    "khushoo_mode": "Khushoo Mode",
+    "enable_khushoo": "Enable Khushoo",
+    "disable_khushoo": "Disable Khushoo"
+  },
+
+  "profile": {
+    "feedback": "Feedback & Suggestions",
+    "ecosystem": "Afaq Ecosystem",
+    "backup": "Backup",
+    "export": "Export Data",
+    "import": "Import Data",
+    "telegram_channels": "Telegram Channels",
+    "telegram_bots": "Telegram Bots",
+    "telegram_groups": "Telegram Groups"
+  },
+
+  "settings_screen": {
+    "appearance": "Appearance",
+    "font_size": "Font Size",
+    "clear_cache": "Clear Cache",
+    "about_app": "About App",
+    "rate_app": "Rate App",
+    "athan_notifications": "Athan Notifications",
+    "version": "Version",
+    "cache_cleared": "Cache cleared successfully",
+    "appearance_placeholder": "Appearance options coming soon",
+    "rate_placeholder": "Thank you for your rating!",
+    "about_placeholder": "Afaq - Your Daily Spiritual Companion"
+  },
+
+  "widgets_screen": {
+    "next_prayer": "Next Prayer",
+    "daily_ayah": "Daily Ayah",
+    "athkar_counter": "Athkar Counter",
+    "reading_progress": "Reading Progress",
+    "add_to_home": "Add to Home Screen",
+    "glass_background": "Glass Background",
+    "text_size": "Text Size",
+    "gold_accent": "Gold Accent",
+    "customize": "Customize"
+  },
+
+  "onboarding": {
+    "title": "Choose Your Language",
+    "subtitle": "You can change it later from settings",
+    "default_label": "Default",
+    "start": "Get Started"
+  },
+
+  "khatmah": {
+    "title": "Khatmah",
+    "daily_pages": "Daily Pages",
+    "target_days": "Target Days",
+    "progress": "Progress",
+    "pages_read": "Pages Read",
+    "pages_remaining": "Pages Remaining",
+    "completed": "Khatmah Completed!",
+    "set_goal": "Set Goal",
+    "reset": "Reset"
+  },
+
+  "alarms_screen": {
+    "athan_toggles": "Athan Notifications",
+    "morning_evening_athkar": "Morning & Evening Athkar",
+    "night_prayer": "Night Prayer (Qiyam)",
+    "friday_kahf": "Surah Al-Kahf (Friday)"
+  },
+
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "no_internet": "No internet connection",
+    "settings": "Settings",
+    "language": "Language",
+    "arabic": "العربية",
+    "english": "English",
+    "kurdish": "کوردی (سۆرانی)"
+  }
+}

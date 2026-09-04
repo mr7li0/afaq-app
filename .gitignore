@@ -1,0 +1,85 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code related
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+pubspec.lock
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Platform directories
+/android/
+/ios/
+/linux/
+/macos/
+/web/
+/windows/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+
+# Hive generated
+*.hive
+*.lock
+
+# Local configuration
+*.local
+
+# Gradle
+.gradle/
+**/build/
+gradle-home/
+
+# NDK
+/android/ndk/
+
+# Android user
+android-user/
+
+# Temp
+tmp/
+*.txt
+!pubspec.yaml
+build.bat
+build_background.ps1
+build_flutter.bat
+copy_apk.ps1
+copy_to_desktop.ps1
+.gradle/
+.android/

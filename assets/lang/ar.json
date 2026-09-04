@@ -1,0 +1,168 @@
+{
+  "app_name": "آفاق",
+  "app_tagline": "رفيقك الروحي اليومي",
+
+  "nav": {
+    "home": "الرئيسية",
+    "quran": "القرآن",
+    "athkar": "الأذكار",
+    "alarms": "التنبيهات",
+    "qibla": "القبلة",
+    "widgets": "ويدجيت",
+    "profile": "الملف الشخصي"
+  },
+
+  "dashboard": {
+    "next_prayer": "الصلاة القادمة",
+    "time_remaining": "متبقي",
+    "hijri_date": "التاريخ الهجري",
+    "gregorian_date": "التاريخ الميلادي",
+    "ayah_of_the_day": "آية اليوم",
+    "tadabbur": "تدبر",
+    "refresh_ayah": "آية جديدة",
+    "fasting_reminder": "تذكير بالصيام",
+    "white_days": "ال أيام البيض",
+    "al_kahf": "سورة الكهف والصلاة على النبي ﷺ",
+    "witr_qiyam": "vitr والقيام",
+    "hawqala_toggle": "الحوقلة",
+    "salawat_toggle": "الصلاة على النبي ﷺ",
+    "morning_uthkar": "أذكار الصباح",
+    "evening_athkar": "أذكار المساء"
+  },
+
+  "quran": {
+    "search_hint": "ابحث في القرآن...",
+    "no_results": "لا توجد نتائج",
+    "surah": "سورة",
+    "ayah": "آية",
+    "juz": "جزء",
+    "page": "صفحة",
+    "play_recitation": "استماع",
+    "copy_text": "نسخ",
+    "tafsir": "تفسير",
+    "bookmark": "إضافة للمفضلة",
+    "remove_bookmark": "إزالة من المفضلة",
+    "wird_progress": "تقدم القراءة",
+    "catch_up_mode": "وضع اللحاق",
+    "auto_scroll": "التمرير التلقائي",
+    "ambient_sounds": "الأصوات المحيطة",
+    "reciters": "القراء",
+    "story_studio": "استوديو القصص والخلفيات",
+    "save_image": "حفظ الصورة"
+  },
+
+  "athkar": {
+    "morning": "أذكار الصباح",
+    "evening": "أذكار المساء",
+    "sleep": "أذكار النوم",
+    "wake_up": "أذكار الاستيقاظ",
+    "travel": "أذكار السفر",
+    "mosque": "أذكار المسجد",
+    "prayer": "أذكار الصلاة",
+    "count_remaining": "متبقي",
+    "completed": "تم الإكمال"
+  },
+
+  "alarms": {
+    "athan": "الأذان",
+    "periodic": "التنبيهات الدورية",
+    "quiet_hours": "ساعات الهدوء",
+    "morning_athan": "أذان الفجر",
+    "duhr_athan": "أذان الظهر",
+    "asr_athan": "أذان العصر",
+    "maghrib_athan": "أذان المغرب",
+    "isha_athan": "أذان العشاء",
+    "five_minutes_before": "قبل 5 دقائق",
+    "at_time": "في موعد الأذان",
+    "location": "الموقع",
+    "calculation_method": "طريقة الحساب",
+    "madhab": "المذهب"
+  },
+
+  "qibla": {
+    "direction": "اتجاه القبلة",
+    "khushoo_mode": "وضع الخشوع",
+    "enable_khushoo": "تفعيل الخشوع",
+    "disable_khushoo": "إيقاف الخشوع"
+  },
+
+  "profile": {
+    "feedback": "الملاحظات والاقتراحات",
+    "ecosystem": "منظومة آفاق",
+    "backup": "النسخ الاحتياطي",
+    "export": "تصدير البيانات",
+    "import": "استيراد البيانات",
+    "telegram_channels": "قنوات تيليجرام",
+    "telegram_bots": "بوتات تيليجرام",
+    "telegram_groups": "مجموعات تيليجرام"
+  },
+
+  "settings_screen": {
+    "appearance": "المظهر",
+    "font_size": "حجم النص",
+    "clear_cache": "مسح الكاش",
+    "about_app": "عن التطبيق",
+    "rate_app": "تقييم التطبيق",
+    "athan_notifications": "إشعارات الأذان",
+    "version": "الإصدار",
+    "cache_cleared": "تم مسح الكاش بنجاح",
+    "appearance_placeholder": "خيارات المظهر قادمة قريباً",
+    "rate_placeholder": "شكراً لتقييمك!",
+    "about_placeholder": "آفاق - رفيقك الروحي اليومي"
+  },
+
+  "widgets_screen": {
+    "next_prayer": "الصلاة القادمة",
+    "daily_ayah": "آية اليوم",
+    "athkar_counter": "عداد الأذكار",
+    "reading_progress": "ورد القراءة",
+    "add_to_home": "إضافة إلى الشاشة الرئيسية",
+    "glass_background": "خلفية زجاجية",
+    "text_size": "حجم النص",
+    "gold_accent": "لون ذهبي",
+    "customize": "تخصيص"
+  },
+
+  "onboarding": {
+    "title": "اختر لغتك",
+    "subtitle": "يمكنك تغييرها لاحقاً من الإعدادات",
+    "default_label": "الافتراضي",
+    "start": "ابدأ"
+  },
+
+  "khatmah": {
+    "title": "الختمة",
+    "daily_pages": "الصفحات اليومية",
+    "target_days": "عدد الأيام المستهدفة",
+    "progress": "التقدم",
+    "pages_read": "صفحة مقروءة",
+    "pages_remaining": "صفحة متبقية",
+    "completed": "تمت الختمة!",
+    "set_goal": "تحديد الهدف",
+    "reset": "إعادة تعيين"
+  },
+
+  "alarms_screen": {
+    "athan_toggles": "تنبيهات الأذان",
+    "morning_evening_athkar": "أذكار الصباح والمساء",
+    "night_prayer": "صلاة القيام",
+    "friday_kahf": "سورة الكهف (الجمعة)"
+  },
+
+  "common": {
+    "ok": "موافق",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "confirm": "تأكيد",
+    "loading": "جارٍ التحميل...",
+    "error": "حدث خطأ",
+    "retry": "إعادة المحاولة",
+    "no_internet": "لا يوجد اتصال بالإنترنت",
+    "settings": "الإعدادات",
+    "language": "اللغة",
+    "arabic": "العربية",
+    "english": "English",
+    "kurdish": "کوردی (سۆرانی)"
+  }
+}
