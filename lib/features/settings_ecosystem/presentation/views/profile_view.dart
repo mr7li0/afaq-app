@@ -194,10 +194,11 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 
-  void _switchLanguage(SettingsController controller, LocalizationProvider l10n, String code) {
+  void _switchLanguage(SettingsController controller, LocalizationProvider l10n, String code) async {
     final locale = Locale(code);
     controller.setLocale(locale);
-    l10n.setLocale(locale);
+    await l10n.setLocale(locale);
+    await LocalStorageService().setLocale(code);
   }
 
   // ── Notifications Toggle ───────────────────────────

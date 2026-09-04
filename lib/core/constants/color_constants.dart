@@ -59,6 +59,7 @@ class AppTheme {
   static ThemeData get dark => ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: AppColors.primary,
+    fontFamily: 'Milan',
     colorScheme: const ColorScheme.dark(
       primary: AppColors.ivory,
       surface: AppColors.cardDark,

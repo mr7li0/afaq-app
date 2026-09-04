@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:afaq/core/constants/color_constants.dart';
 import 'package:afaq/core/localization/l10n.dart';
+import 'package:afaq/core/services/local_storage_service.dart';
 
 class LanguageSelectionView extends StatelessWidget {
   final VoidCallback onComplete;
@@ -40,9 +41,11 @@ class LanguageSelectionView extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           final l10n = context.read<LocalizationProvider>();
-          l10n.setLocaleByCode(code);
+          await l10n.setLocaleByCode(code);
+          // Save to Hive so _isLanguageSet in AppRoot detects it
+          await LocalStorageService().setLocale(code);
           onComplete();
         },
         style: ElevatedButton.styleFrom(

@@ -127,6 +127,14 @@ class _AppRootState extends State<AppRoot> {
     }
   }
 
+  bool get _isFirstLaunch {
+    try {
+      return LocalStorageService().isFirstLaunch;
+    } catch (_) {
+      return true;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -140,17 +148,25 @@ class _AppRootState extends State<AppRoot> {
     if (_showSplash) return const _SplashScreen();
     final l10n = context.watch<LocalizationProvider>();
     if (!l10n.isReady) return const _SplashScreen();
+
+    // Step 1: Language not set → show language selection
     if (!_isLanguageSet) {
       return LanguageSelectionView(onComplete: () {
-        setState(() => _showPermissionScreen = true);
+        setState(() {
+          _showPermissionScreen = true;
+        });
       });
     }
-    if (_showPermissionScreen) {
+
+    // Step 2: First launch → show permission screen
+    if (_showPermissionScreen || _isFirstLaunch) {
       return _PermissionScreen(onComplete: () {
         LocalStorageService().setFirstLaunchDone();
         setState(() => _showPermissionScreen = false);
       });
     }
+
+    // Step 3: Main app
     return const MainNavigationView();
   }
 }
