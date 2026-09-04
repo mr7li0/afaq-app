@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../constants/app_constants.dart';
 
 /// Provides the full localization pipeline:
-/// 1. Load saved locale from SharedPreferences (default: Arabic)
+/// 1. Load saved locale from Hive (default: Arabic)
 /// 2. Load matching JSON from assets/lang/
 /// 3. Build a map of nested keys flattened with dot notation
 class LocalizationProvider extends ChangeNotifier {
@@ -30,10 +30,15 @@ class LocalizationProvider extends ChangeNotifier {
 
   // ── Initialization ─────────────────────────────────
   Future<void> init() async {
-    final prefs = await SharedPreferences.getInstance();
-    final code = prefs.getString(AppConstants.keyLocale) ?? 'ar';
-    _locale = Locale(code);
-    await _loadStrings(code);
+    // Read from Hive (same source as AppRoot._isLanguageSet)
+    try {
+      final box = Hive.box(AppConstants.boxSettings);
+      final code = box.get(AppConstants.keyLocale, defaultValue: 'ar') ?? 'ar';
+      _locale = Locale(code.toString());
+    } catch (_) {
+      _locale = const Locale('ar');
+    }
+    await _loadStrings(_locale.languageCode);
     _isReady = true;
     notifyListeners();
   }
@@ -64,8 +69,11 @@ class LocalizationProvider extends ChangeNotifier {
     if (_locale == locale) return;
     _locale = locale;
     await _loadStrings(locale.languageCode);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(AppConstants.keyLocale, locale.languageCode);
+    // Save to Hive (primary storage)
+    try {
+      final box = Hive.box(AppConstants.boxSettings);
+      await box.put(AppConstants.keyLocale, locale.languageCode);
+    } catch (_) {}
     notifyListeners();
   }
 

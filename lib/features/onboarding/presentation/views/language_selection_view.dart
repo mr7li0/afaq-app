@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:afaq/core/constants/color_constants.dart';
-import 'package:afaq/core/localization/l10n.dart';
 import 'package:afaq/core/services/local_storage_service.dart';
 
 class LanguageSelectionView extends StatelessWidget {
@@ -26,9 +24,15 @@ class LanguageSelectionView extends StatelessWidget {
               const SizedBox(height: 16),
               const Text('اختر لغتك', style: TextStyle(fontSize: 18, color: AppColors.textHint)),
               const Spacer(flex: 2),
-              _buildLanguageButton(context, label: 'العربية', code: 'ar'),
+              _buildBtn('العربية', () async {
+                await LocalStorageService().setLocale('ar');
+                onComplete();
+              }),
               const SizedBox(height: 16),
-              _buildLanguageButton(context, label: 'کوردی', code: 'ckb'),
+              _buildBtn('کوردی', () async {
+                await LocalStorageService().setLocale('ckb');
+                onComplete();
+              }),
               const Spacer(flex: 2),
             ],
           ),
@@ -37,17 +41,11 @@ class LanguageSelectionView extends StatelessWidget {
     );
   }
 
-  Widget _buildLanguageButton(BuildContext context, {required String label, required String code}) {
+  Widget _buildBtn(String label, VoidCallback onTap) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () async {
-          final l10n = context.read<LocalizationProvider>();
-          await l10n.setLocaleByCode(code);
-          // Save to Hive so _isLanguageSet in AppRoot detects it
-          await LocalStorageService().setLocale(code);
-          onComplete();
-        },
+        onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.ivory,
           foregroundColor: AppColors.primary,
