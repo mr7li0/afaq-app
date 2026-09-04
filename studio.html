@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>آفاق — استوديو التصميم</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* === SETUP WIZARD (page flow, header visible above) === */
+#setup-wizard {
+  display:flex; flex-direction:column; align-items:center;
+  min-height:calc(100vh - var(--nav-height)); margin-top:var(--nav-height); direction:rtl;
+  overflow-y:auto; padding-bottom:30px;
+}
+.setup-card {
+  width:520px; max-width:92vw; margin:40px auto;
+  background:rgba(233,227,211,0.03);
+  backdrop-filter:blur(40px);
+  -webkit-backdrop-filter:blur(40px);
+  border:1px solid rgba(233,227,211,0.1);
+  border-radius:16px; padding:36px 32px 32px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(233,227,211,0.08);
+  position:relative;
+}
+.setup-logo {
+  display:flex; align-items:center; justify-content:center;
+  width:70px; height:70px; margin:0 auto 12px;
+  font-size:48px; line-height:1;
+  color:var(--ivory); font-family:var(--font-omar);
+  border:2px solid var(--primary-deeper); border-radius:16px;
+}
+.setup-title { font-size:20px; font-weight:600; color:var(--ivory); margin:0 0 4px; text-align:center; }
+.setup-subtitle { font-size:13px; color:var(--ivory-dark); opacity:0.5; margin:0 0 28px; text-align:center; }
+.setup-section { margin-bottom:24px; }
+.setup-label { font-size:13px; font-weight:500; color:var(--ivory-dark); margin-bottom:8px; display:block; }
+.setup-presets { display:flex; gap:8px; flex-wrap:wrap; }
+.setup-preset {
+  padding:8px 18px; border-radius:8px; border:1px solid var(--primary-deeper);
+  background:transparent; color:var(--ivory-dark); cursor:pointer;
+  font-size:13px; font-family:var(--font-body); transition:all 0.15s;
+}
+.setup-preset.active { border-color:var(--accent); color:var(--ivory); background:var(--accent-dim); }
+.setup-bg-grid { display:flex; gap:8px; flex-wrap:wrap; }
+.setup-bg-opt {
+  padding:8px 18px; border-radius:8px; border:1px solid var(--primary-deeper);
+  background:transparent; color:var(--ivory-dark); cursor:pointer;
+  font-size:13px; font-family:var(--font-body); transition:all 0.15s;
+}
+.setup-bg-opt.active { border-color:var(--accent); color:var(--ivory); background:var(--accent-dim); }
+.setup-bg-color-row { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.setup-bg-color-row input[type="color"] { width:36px; height:36px; border:none; border-radius:8px; cursor:pointer; background:none; padding:0; }
+.setup-bg-color-row input[type="text"] {
+  width:90px; padding:6px 10px; border-radius:6px;
+  border:1px solid var(--primary-deeper); background:var(--bg-dark);
+  color:var(--ivory); font-size:13px; font-family:var(--font-body);
+}
+.setup-gradient-options { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.setup-gradient-swatch { width:52px; height:36px; border-radius:8px; border:2px solid transparent; cursor:pointer; transition:border-color 0.15s; }
+.setup-gradient-swatch.active { border-color:var(--accent); }
+.setup-file-row { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.setup-file-row input[type="file"] { display:none; }
+.setup-file-btn {
+  padding:8px 16px; border-radius:8px; border:1px solid var(--primary-deeper);
+  background:var(--bg-dark); color:var(--ivory-dark); cursor:pointer;
+  font-size:13px; font-family:var(--font-body); transition:all 0.15s;
+}
+.setup-file-btn:hover { border-color:var(--accent); color:var(--ivory); }
+.setup-file-name { font-size:12px; color:var(--ivory-dark); opacity:0.5; }
+.setup-launch {
+  width:100%; margin-top:8px; padding:14px 28px;
+  border:1px solid var(--accent); border-radius:8px;
+  background:rgba(79,156,247,0.08); color:var(--ivory);
+  font-size:16px; font-weight:600; cursor:pointer; transition:all 0.2s;
+  font-family:var(--font-body); display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.setup-launch:hover { background:var(--accent-dim); transform:scale(1.02); }
+.setup-launch:active { transform:scale(0.98); }
+
+/* === STUDIO EDITOR === */
+#studio-editor {
+  position:fixed; inset:0; z-index:200;
+  display:flex; flex-direction:column;
+  background:var(--bg-darker); direction:rtl;
+}
+
+/* Top bar */
+#editor-topbar {
+  display:flex; align-items:center; justify-content:space-between;
+  height:52px; padding:0 16px; flex-shrink:0;
+  background:rgba(58,80,85,0.85);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(233,227,211,0.08);
+}
+.et-left { display:flex; align-items:center; gap:10px; }
+.et-back-btn {
+  width:32px; height:32px; border-radius:8px; border:none;
+  background:rgba(233,227,211,0.06); color:var(--ivory-dark);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all 0.15s; font-family:var(--font-body);
+}
+.et-back-btn:hover { background:rgba(233,227,211,0.12); color:var(--ivory); }
+.et-logo {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; font-size:30px; line-height:1;
+  color:var(--ivory); font-family:var(--font-omar);
+  border:1.5px solid var(--primary-deeper); border-radius:8px;
+}
+.et-dimensions { font-size:12px; color:var(--ivory-dark); opacity:0.5; margin-right:10px; }
+.et-center { display:flex; align-items:center; gap:6px; }
+.et-icon-btn {
+  width:30px; height:30px; border-radius:6px; border:none;
+  background:rgba(233,227,211,0.06); color:var(--ivory-dark);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all 0.15s;
+}
+.et-icon-btn:hover { background:rgba(233,227,211,0.12); color:var(--ivory); }
+.et-right { display:flex; align-items:center; gap:8px; }
+.et-export-btn {
+  padding:6px 14px; border-radius:6px; border:1px solid var(--accent);
+  background:rgba(79,156,247,0.08); color:var(--ivory);
+  font-size:13px; font-weight:500; cursor:pointer; transition:all 0.15s;
+  font-family:var(--font-body); display:flex; align-items:center; gap:6px;
+}
+.et-export-btn:hover { background:var(--accent-dim); }
+
+/* Body - sidebar + workspace */
+#editor-body { flex:1; display:flex; overflow:hidden; min-height:0; }
+
+/* Sidebar */
+#s-sidebar {
+  width:240px; flex-shrink:0;
+  background:var(--bg-dark);
+  border-left:1px solid rgba(233,227,211,0.06);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+#s-sidebar .s-tabs { display:flex; flex-shrink:0; border-bottom:1px solid rgba(233,227,211,0.06); }
+#s-sidebar .s-tab {
+  flex:1; padding:10px 8px; border:none; background:transparent;
+  color:var(--ivory-dark); font-size:12px; font-weight:500; cursor:pointer;
+  font-family:var(--font-body); transition:all 0.15s;
+  border-bottom:2px solid transparent;
+}
+#s-sidebar .s-tab.active { color:var(--ivory); border-bottom-color:var(--accent); }
+#s-sidebar .s-panel {
+  flex:1; overflow-y:auto; padding:16px; min-height:0;
+}
+#s-sidebar .s-panel::-webkit-scrollbar { width:4px; }
+#s-sidebar .s-panel::-webkit-scrollbar-thumb { background:rgba(233,227,211,0.1); border-radius:2px; }
+.s-group { margin-bottom:20px; }
+.s-group-title {
+  font-size:11px; font-weight:600; color:var(--ivory-dark); opacity:0.4;
+  text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;
+}
+.s-btn {
+  width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--primary-deeper);
+  background:transparent; color:var(--ivory); font-size:13px; cursor:pointer;
+  font-family:var(--font-body); transition:all 0.15s; text-align:center;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.s-btn:hover { border-color:var(--accent); background:var(--accent-dim); }
+.s-field { margin-bottom:10px; }
+.s-field label { display:block; font-size:11px; color:var(--ivory-dark); opacity:0.5; margin-bottom:4px; }
+.s-field select, .s-field input {
+  width:100%; padding:7px 10px; border-radius:6px;
+  border:1px solid var(--primary-deeper); background:var(--bg-darker);
+  color:var(--ivory); font-size:13px; font-family:var(--font-body);
+}
+.s-field input[type="color"] { width:100%; height:38px; padding:2px; cursor:pointer; }
+.s-field input[type="range"] {
+  width:100%; height:4px; -webkit-appearance:none; appearance:none;
+  background:var(--primary-deeper); border-radius:2px; outline:none; padding:0; border:none;
+}
+.s-field input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance:none; width:14px; height:14px; border-radius:50%;
+  background:var(--accent); cursor:pointer; border:2px solid var(--bg-dark);
+}
+.s-slider-row { display:flex; align-items:center; gap:8px; }
+.s-slider-row input[type="range"] { flex:1; }
+.s-slider-val { font-size:12px; color:var(--ivory-dark); min-width:32px; text-align:left; }
+.s-shadow-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+
+/* Workspace floor */
+#s-floor {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  overflow:hidden; position:relative; min-height:0;
+  background:var(--bg-darker);
+  background-image:radial-gradient(ellipse at center, rgba(106,124,126,0.06) 0%, transparent 70%);
+}
+#canvas-wrap {
+  position:relative; display:flex; align-items:center; justify-content:center;
+}
+#canvas-wrap .canvas-container { border-radius:4px; box-shadow:0 4px 24px rgba(0,0,0,0.4); }
+#canvas-loader {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(21,25,27,0.9); color:var(--ivory-dark);
+  font-size:14px; z-index:20; transition:opacity 0.3s;
+  opacity:0; pointer-events:none;
+}
+#canvas-loader.show { opacity:1; pointer-events:auto; }
+
+/* === QURAN MODAL === */
+#quran-modal {
+  position:fixed; inset:0; z-index:1000;
+  display:none; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.6); backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+#quran-modal.show { display:flex; }
+.qm-card {
+  width:520px; max-width:92vw; max-height:80vh;
+  background:var(--bg-card); border:1px solid var(--primary-deeper);
+  border-radius:16px; display:flex; flex-direction:column;
+  overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.6);
+}
+.qm-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 20px; border-bottom:1px solid rgba(233,227,211,0.06);
+}
+.qm-header h2 { font-size:16px; color:var(--ivory); margin:0; }
+.qm-close {
+  width:30px; height:30px; border-radius:6px; border:none;
+  background:rgba(233,227,211,0.06); color:var(--ivory-dark); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:all 0.15s;
+}
+.qm-close:hover { background:rgba(233,227,211,0.12); color:var(--ivory); }
+.qm-body { flex:1; overflow-y:auto; padding:16px 20px; }
+.qm-search-wrap { margin-bottom:12px; }
+.qm-search-wrap input {
+  width:100%; padding:10px 14px; border-radius:8px;
+  border:1px solid var(--primary-deeper); background:var(--bg-dark);
+  color:var(--ivory); font-size:14px; font-family:var(--font-body);
+}
+.qm-search-wrap input:focus { outline:none; border-color:var(--accent); }
+.qm-results { margin-bottom:12px; }
+.qm-result { padding:10px 12px; border-radius:8px; cursor:pointer; transition:all 0.1s; margin-bottom:4px; }
+.qm-result:hover { background:var(--accent-dim); }
+.qm-result.active { background:var(--accent-dim); border:1px solid var(--accent); }
+.qm-result-text { font-size:18px; line-height:1.7; color:var(--ivory); font-family:'DigitalNewMadina', serif; }
+.qm-result-meta { font-size:11px; color:var(--ivory-dark); opacity:0.5; margin-top:2px; }
+.qm-range { display:flex; align-items:center; gap:8px; padding-top:12px; border-top:1px solid rgba(233,227,211,0.06); }
+.qm-range label { font-size:12px; color:var(--ivory-dark); }
+.qm-range input {
+  width:60px; padding:6px 8px; border-radius:6px;
+  border:1px solid var(--primary-deeper); background:var(--bg-dark);
+  color:var(--ivory); font-size:13px;
+}
+.qm-insert-btn {
+  padding:8px 16px; border-radius:6px; border:1px solid var(--accent);
+  background:var(--accent-dim); color:var(--ivory); font-size:13px;
+  cursor:pointer; font-family:var(--font-body); transition:all 0.15s;
+}
+.qm-insert-btn:hover { background:rgba(79,156,247,0.2); }
+
+/* === EXIT MODAL === */
+#exit-modal {
+  position:fixed; inset:0; z-index:2000;
+  display:none; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.5); backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+#exit-modal.show { display:flex; visibility:visible; }
+.exit-card {
+  width:360px; max-width:88vw;
+  background:var(--bg-card); border:1px solid var(--primary-deeper);
+  border-radius:16px; padding:28px 24px 24px; text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.exit-card h3 { font-size:16px; color:var(--ivory); margin:0 0 8px; }
+.exit-card p { font-size:13px; color:var(--ivory-dark); opacity:0.6; margin:0 0 20px; line-height:1.5; }
+.exit-actions { display:flex; gap:10px; }
+.exit-btn { flex:1; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; transition:all 0.15s; font-family:var(--font-body); }
+.exit-btn-primary { border:1px solid var(--accent); background:var(--accent-dim); color:var(--ivory); }
+.exit-btn-primary:hover { background:rgba(79,156,247,0.2); }
+.exit-btn-secondary { border:1px solid var(--primary-deeper); background:transparent; color:var(--ivory-dark); }
+.exit-btn-secondary:hover { border-color:var(--ivory-dark); color:var(--ivory); }
+
+@media (max-width:768px) { #s-sidebar { width:200px; } }
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- SITE HEADER (visible during setup wizard) -->
+<header class="header" id="studio-site-header">
+  <div class="container">
+    <a href="index.html" class="logo"><span class="logo-img logo-font">2</span></a>
+    <nav class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="studio.html" class="active">استوديو التصميم</a>
+      <a href="gallery.html">المعرض</a>
+      <a href="network.html">القنوات والبوتات</a>
+    </nav>
+    <div class="menu-toggle"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<!-- SETUP WIZARD (flows below header) -->
+<div id="setup-wizard">
+  <div class="setup-card">
+    <div class="setup-section">
+      <span class="setup-label">أبعاد اللوحة</span>
+      <div class="setup-presets" id="setup-presets">
+        <button class="setup-preset active" data-w="1080" data-h="1080">1:1 مربع</button>
+        <button class="setup-preset" data-w="1080" data-h="1920">9:16 ستوري</button>
+        <button class="setup-preset" data-w="1920" data-h="1080">16:9 عرض</button>
+      </div>
+    </div>
+    <div class="setup-section">
+      <span class="setup-label">الخلفية</span>
+      <div class="setup-bg-grid" id="setup-bg-type">
+        <button class="setup-bg-opt active" data-type="color">لون</button>
+        <button class="setup-bg-opt" data-type="gradient">تدرج</button>
+        <button class="setup-bg-opt" data-type="image">صورة</button>
+      </div>
+      <div id="setup-bg-color" class="setup-bg-color-row">
+        <input type="color" id="setup-bg-color-picker" value="#1a1a2e">
+        <input type="text" id="setup-bg-color-hex" value="#1a1a2e" maxlength="7">
+      </div>
+      <div id="setup-bg-gradient" style="display:none;">
+        <div class="setup-gradient-options" id="setup-gradients">
+          <div class="setup-gradient-swatch active" data-grad="midnight" style="background:linear-gradient(135deg,#0a0a0a,#3a3a3a)"></div>
+          <div class="setup-gradient-swatch" data-grad="ocean" style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)"></div>
+          <div class="setup-gradient-swatch" data-grad="sunset" style="background:linear-gradient(135deg,#e96443,#904e95)"></div>
+          <div class="setup-gradient-swatch" data-grad="earth" style="background:linear-gradient(135deg,#134e5e,#71b280)"></div>
+          <div class="setup-gradient-swatch" data-grad="royal" style="background:linear-gradient(135deg,#42275a,#734b6d)"></div>
+          <div class="setup-gradient-swatch" data-grad="slate" style="background:linear-gradient(135deg,#16222a,#3a6073)"></div>
+        </div>
+      </div>
+      <div id="setup-bg-image" style="display:none;">
+        <div class="setup-file-row">
+          <input type="file" id="setup-bg-file" accept="image/*">
+          <button class="setup-file-btn" id="setup-bg-file-btn">اختر صورة</button>
+          <span class="setup-file-name" id="setup-file-name"></span>
+        </div>
+      </div>
+    </div>
+    <button class="setup-launch" id="setup-launch"><i data-lucide="sparkles" style="width:16px;height:16px;"></i> إنشاء تصميم جديد</button>
+  </div>
+</div>
+
+<!-- STUDIO EDITOR -->
+<div id="studio-editor" style="display:none;">
+  <div id="editor-topbar">
+    <div class="et-left">
+      <button class="et-back-btn" id="et-back"><i data-lucide="arrow-right"></i></button>
+      <span class="et-logo logo-font">2</span>
+      <span class="et-dimensions" id="et-dimensions">1080 x 1080</span>
+    </div>
+    <div class="et-center">
+      <button class="et-icon-btn" id="et-undo" title="تراجع"><i data-lucide="undo-2"></i></button>
+      <button class="et-icon-btn" id="et-redo" title="إعادة"><i data-lucide="redo-2"></i></button>
+    </div>
+    <div class="et-right">
+      <button class="et-export-btn" id="et-export"><i data-lucide="download" style="width:14px;height:14px;"></i> تصدير</button>
+    </div>
+  </div>
+  <div id="editor-body">
+
+    <!-- SIDEBAR -->
+    <div id="s-sidebar">
+      <div class="s-tabs" id="s-tab-bar">
+        <button class="s-tab active" data-panel="tools">الأدوات</button>
+        <button class="s-tab" data-panel="layers">الطبقات</button>
+      </div>
+      <div class="s-panel" id="s-tools">
+        <div class="s-group">
+          <div class="s-group-title">النص القرآني</div>
+          <button class="s-btn" id="sb-quran-search"><i data-lucide="search"></i> البحث عن آية</button>
+        </div>
+        <div class="s-group">
+          <div class="s-group-title">الخط</div>
+          <div class="s-field">
+            <label>الخط القرآني</label>
+            <select id="sb-quran-font"><option value="new">ديجيتال حديث</option><option value="old">ديجيتال قديم</option></select>
+          </div>
+          <div class="s-field">
+            <label>الحجم</label>
+            <input type="number" id="sb-font-size" value="44" min="8" max="500">
+          </div>
+          <div class="s-field">
+            <label>اللون</label>
+            <input type="color" id="sb-text-color" value="#e9e3d3">
+          </div>
+          <div class="s-field">
+            <label>الشفافية</label>
+            <input type="range" id="sb-opacity" min="0" max="100" value="100">
+          </div>
+        </div>
+        <div class="s-group">
+          <div class="s-group-title">الظل</div>
+          <div class="s-shadow-grid">
+            <div class="s-field"><label>الإزاحة X</label><input type="number" id="sb-shadow-x" value="2" min="-50" max="50"></div>
+            <div class="s-field"><label>الإزاحة Y</label><input type="number" id="sb-shadow-y" value="2" min="-50" max="50"></div>
+          </div>
+          <div class="s-field">
+            <label>الضبابية</label>
+            <div class="s-slider-row">
+              <input type="range" id="sb-shadow-blur" min="0" max="50" value="4">
+              <span class="s-slider-val" id="sb-shadow-blur-val">4</span>
+            </div>
+          </div>
+          <div class="s-field">
+            <label>العتامة</label>
+            <div class="s-slider-row">
+              <input type="range" id="sb-shadow-opacity" min="0" max="100" value="50">
+              <span class="s-slider-val" id="sb-shadow-opacity-val">50</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="s-panel" id="s-layers" style="display:none;">
+        <div class="s-group">
+          <div class="s-group-title">الطبقات</div>
+          <div id="sb-layers-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKSPACE (no bg-layer; background renders on canvas) -->
+    <div id="s-floor">
+      <div id="canvas-wrap">
+        <canvas id="studio-canvas"></canvas>
+      </div>
+      <div id="canvas-loader">جارٍ التحميل...</div>
+    </div>
+  </div>
+</div>
+
+<!-- QURAN MODAL -->
+<div id="quran-modal">
+  <div class="qm-card">
+    <div class="qm-header">
+      <h2>البحث عن آية</h2>
+      <button class="qm-close" id="qm-close"><i data-lucide="x"></i></button>
+    </div>
+    <div class="qm-body">
+      <div class="qm-search-wrap"><input type="text" id="qm-input" placeholder="اكتب الكلمة أو رقم الآية..." autocomplete="off"></div>
+      <div class="qm-results" id="qm-results"></div>
+      <div class="qm-range">
+        <label>من آية:</label><input type="number" id="qm-ayah-from" value="1" min="1">
+        <label>إلى آية:</label><input type="number" id="qm-ayah-to" value="1" min="1">
+        <button class="qm-insert-btn" id="qm-insert">إدراج</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXIT MODAL -->
+<div id="exit-modal">
+  <div class="exit-card">
+    <h3>هل أنت متأكد من الخروج؟</h3>
+    <p>سيتم فقدان جميع التعديلات الحالية.</p>
+    <div class="exit-actions">
+      <button class="exit-btn exit-btn-secondary" id="exit-cancel">إلغاء</button>
+      <button class="exit-btn exit-btn-primary" id="exit-confirm">تأكيد ومغادرة</button>
+    </div>
+  </div>
+</div>
+
+</div>
+<script src="js/kufam-font.js"></script>
+<script src="https://unpkg.com/lucide@0.473.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+<script src="js/opentype.min.js"></script>
+<script src="js/quran-embedded.js"></script>
+<script src="js/quran-khatt.js"></script>
+<script src="js/quran-data.js"></script>
+<script src="js/fonts-base64.js"></script>
+<script src="js/studio.js"></script>
+</body>
+</html>
