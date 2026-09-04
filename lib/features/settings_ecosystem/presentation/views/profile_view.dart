@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/color_constants.dart';
 import '../../../../core/localization/l10n.dart';
+import '../../../../core/services/local_storage_service.dart';
+import '../../../../core/utils/prayer_time_utils.dart';
 import '../controllers/settings_controller.dart';
 
 /// Profile & Settings screen with language switching.
@@ -47,6 +49,8 @@ class _ProfileViewState extends State<ProfileView> {
                 _buildLanguageCard(l10n, controller),
                 const SizedBox(height: 16),
                 _buildNotificationsCard(l10n),
+                const SizedBox(height: 16),
+                _buildPrayerSettingsCard(l10n),
                 const SizedBox(height: 16),
                 _buildThemeCard(l10n, controller),
                 const SizedBox(height: 16),
@@ -219,6 +223,114 @@ class _ProfileViewState extends State<ProfileView> {
             activeThumbColor: AppColors.textPrimary,
             activeTrackColor: AppColors.textPrimary.withValues(alpha: 0.3),
             inactiveTrackColor: AppColors.glassFill,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Prayer Time Settings ──────────────────────────
+  Widget _buildPrayerSettingsCard(LocalizationProvider l10n) {
+    final storage = LocalStorageService();
+    final currentMethod = storage.calculationMethod;
+
+    return _buildGlassCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.access_time, color: AppColors.textSecondary, size: 20),
+              const SizedBox(width: 10),
+              Text(
+                'إعدادات مواقيت الصلاة',
+                style: const TextStyle(
+                  color: AppColors.textPrimary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Calculation Method
+          Text(
+            'طريقة الحساب',
+            style: const TextStyle(color: AppColors.textHint, fontSize: 12),
+          ),
+          const SizedBox(height: 6),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              color: AppColors.backgroundTertiary.withValues(alpha: 0.6),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppColors.glassBorder),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: currentMethod,
+                isExpanded: true,
+                dropdownColor: AppColors.cardElevated,
+                style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
+                items: PrayerTimeUtils.calculationMethods.keys.map((name) {
+                  final arName = PrayerTimeUtils.methodNamesAr[name] ?? name;
+                  return DropdownMenuItem(value: name, child: Text(arName));
+                }).toList(),
+                onChanged: (value) {
+                  if (value != null) {
+                    storage.setCalculationMethod(value);
+                    setState(() {});
+                  }
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          // Madhab
+          Text(
+            'المذهب',
+            style: const TextStyle(color: AppColors.textHint, fontSize: 12),
+          ),
+          const SizedBox(height: 6),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              color: AppColors.backgroundTertiary.withValues(alpha: 0.6),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: AppColors.glassBorder),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: storage.prefs.getString(AppConstants.keyMadhab) ?? 'Shafi\'i',
+                isExpanded: true,
+                dropdownColor: AppColors.cardElevated,
+                style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
+                items: PrayerTimeUtils.madhabOptions.keys.map((name) {
+                  final arName = PrayerTimeUtils.madhabNamesAr[name] ?? name;
+                  return DropdownMenuItem(value: name, child: Text(arName));
+                }).toList(),
+                onChanged: (value) {
+                  if (value != null) {
+                    storage.prefs.setString(AppConstants.keyMadhab, value);
+                    setState(() {});
+                  }
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          // Location info
+          Row(
+            children: [
+              const Icon(Icons.location_on, color: AppColors.textSecondary, size: 16),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'خط العرض: ${storage.latitude.toStringAsFixed(4)} | خط الطول: ${storage.longitude.toStringAsFixed(4)}',
+                  style: const TextStyle(color: AppColors.textHint, fontSize: 11),
+                ),
+              ),
+            ],
           ),
         ],
       ),
