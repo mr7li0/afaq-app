@@ -17,13 +17,22 @@ late LocalizationProvider gL10n;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AppInitialization.initialize();
-  gL10n = LocalizationProvider();
-  await gL10n.init();
+
+  try {
+    await AppInitialization.initialize();
+  } catch (_) {}
+
+  try {
+    gL10n = LocalizationProvider();
+    await gL10n.init();
+  } catch (_) {
+    gL10n = LocalizationProvider();
+  }
+
   runApp(const AfaqApp());
 
-  // Schedule alarms after app is running (non-blocking)
-  unawaited(Future.delayed(const Duration(seconds: 3), () {
+  // Schedule alarms after app is running
+  unawaited(Future.delayed(const Duration(seconds: 5), () {
     try {
       AppInitialization.scheduleAlarms();
     } catch (_) {}
@@ -140,13 +149,10 @@ class _AppRootState extends State<AppRoot> {
         setState(() => _showPermissionScreen = true);
       });
     }
-    final firstLaunch = LocalStorageService().isFirstLaunch;
-    if (firstLaunch) {
-      LocalStorageService().setFirstLaunchDone();
+    if (_showPermissionScreen) {
       return _PermissionScreen(onComplete: () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const MainNavigationView()),
-        );
+        LocalStorageService().setFirstLaunchDone();
+        setState(() => _showPermissionScreen = false);
       });
     }
     return const MainNavigationView();
@@ -176,12 +182,12 @@ class _PermissionScreenState extends State<_PermissionScreen> {
   Future<void> _requestPermissions() async {
     setState(() {
       _isLoading = true;
-      _loadingText = 'جاري طلب إذن الموقع...';
+      _loadingText = 'جاري طلب الأذونات...';
     });
 
     try {
       final loc = LocationService();
-      final position = await loc.getCurrentPosition();
+      final position = await loc.getCurrentPosition().timeout(const Duration(seconds: 5));
       _locationGranted = position != null;
       if (_locationGranted && position != null) {
         await LocalStorageService().setLocation(position.latitude, position.longitude);
@@ -189,8 +195,6 @@ class _PermissionScreenState extends State<_PermissionScreen> {
     } catch (_) {
       _locationGranted = false;
     }
-
-    setState(() => _loadingText = 'جاري طلب إذن الإشعارات...');
 
     try {
       _notificationGranted = await NotificationService().requestNotificationPermission();
@@ -202,11 +206,6 @@ class _PermissionScreenState extends State<_PermissionScreen> {
       _isLoading = false;
       _loadingText = '';
     });
-
-    if (_locationGranted && _notificationGranted) {
-      await Future.delayed(const Duration(milliseconds: 500));
-      widget.onComplete();
-    }
   }
 
   @override
@@ -249,20 +248,19 @@ class _PermissionScreenState extends State<_PermissionScreen> {
                       child: const Text('إعادة المحاولة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                     ),
                   ),
-                if (_locationGranted && _notificationGranted)
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: widget.onComplete,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.ivory,
-                        foregroundColor: AppColors.primary,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      ),
-                      child: const Text('ابدأ الاستخدام', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                const SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: widget.onComplete,
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: AppColors.ivory, width: 1.5),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
+                    child: const Text('تخطي — الدخول للتطبيق', style: TextStyle(fontSize: 16, color: AppColors.ivory)),
                   ),
+                ),
               ],
               const Spacer(flex: 2),
             ],

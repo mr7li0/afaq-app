@@ -36,13 +36,6 @@ class AppInitialization {
       debugPrint('NotificationService init error: $e');
     }
 
-    // Request notification permission (non-blocking)
-    try {
-      await NotificationService().requestNotificationPermission();
-    } catch (e) {
-      debugPrint('Notification permission error: $e');
-    }
-
     // Sync location (non-blocking)
     try {
       await _syncLocation();
